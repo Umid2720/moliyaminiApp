@@ -70,5 +70,34 @@ moliyaminiApp/
 ├── app.js            # Audit formulalari, 9 savol logikasi va Telegram integratsiyasi
 ├── bot_example.py    # Python aiogram orqali Telegram bot namunasi
 ├── package.json      # Vite konfiguratsiyasi
+├── .gitignore        # Git istisno qoidalari
 └── README.md         # To'liq qo'llanma
 ```
+
+---
+
+## 🛠 Texnologiyalar Steki
+
+- **Frontend**: Vanilla JavaScript (ES6+ Modules), HTML5, CSS3 (Modern Glassmorphism & Custom Properties)
+- **Tooling & Bundler**: [Vite](https://vitejs.dev/)
+- **Telegram Integratsiyasi**: Telegram WebApp SDK, Python (aiogram 3.x)
+- **Tipografiya**: Google Fonts (Plus Jakarta Sans)
+
+---
+
+## 🌿 Git Branchlar va Ishlab Chiqish Tarixi
+
+Loyiha quyidagi mantiqiy feature branchlar orqali bosqichma-bosqich yig'ilgan:
+
+- `chore/project-setup` — Loyiha asosi, paketlar va muhit konfiguratsiyasi
+- `feature/calculation-engine` — Domen modellari, benchmarklar va matematik hisob-kitob yadrosi
+- `feature/ui-design-system` — Semantik HTML va zamonaviy glassmorphism dizayn tizimi
+- `feature/quiz-flow` — 9 bosqichli interaktiv savolnoma va dinamik slayderlar
+- `feature/audit-results-simulator` — Auditorlik hisoboti va jonli "What-If" simulyatori
+- `feature/telegram-bot-integration` — Telegram WebApp SDK va Python aiogram bot skripti
+- `docs/readme-and-release` — Kengaytirilgan hujjatlashtirish va reliz
+
+---
+
+> **Loyiha bosqichma-bosqich hujjatlashtirilgan (feature branchlar orqali)**
+
