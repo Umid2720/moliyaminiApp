@@ -1095,6 +1095,20 @@ function updateLiveFunnelStep9() {
 }
 
 // Simulator Toggles
+function toggleSimCrm(checked) {
+  triggerHaptic("light");
+  state.answers.hasCrm = checked ? "ha" : "yoq";
+  renderAuditResult();
+}
+
+function toggleSimSales(checked) {
+  triggerHaptic("light");
+  state.answers.salesTeam = checked ? "ha" : "ozim";
+  renderAuditResult();
+}
+
+// Copy & Telegram Share Helpers
+function generateReportText() {
   toggleSimSales,
   shareToTelegram,
   copyReportText
