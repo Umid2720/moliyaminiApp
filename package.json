@@ -1,0 +1,22 @@
+{
+  "name": "moliya-mini-app",
+  "version": "1.0.0",
+  "description": "Marketing va Byudjet Auditi - Telegram Mini App",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "telegram-mini-app",
+    "marketing-audit",
+    "finance-calculator",
+    "crm"
+  ],
+  "author": "Antigravity",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
