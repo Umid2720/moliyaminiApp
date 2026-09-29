@@ -643,3 +643,155 @@ function renderStep() {
 // -------------------------------------------------------------
 // AUDIT REPORT RENDERING (Exact Match with user specifications)
 // -------------------------------------------------------------
+function selectAnswer(key, value) {
+  triggerHaptic("light");
+  state.answers[key] = value;
+  renderStep();
+}
+
+function nextStep() {
+  triggerHaptic("medium");
+  if (state.currentStep < 9) {
+    state.currentStep++;
+    renderStep();
+  }
+}
+
+function prevStep() {
+  triggerHaptic("light");
+  if (state.currentStep > 1) {
+    state.currentStep--;
+    renderStep();
+  }
+}
+
+function proceedFromStep4() {
+  triggerHaptic("medium");
+  state.isTransitionScreen = true;
+  renderStep();
+}
+
+function goBackFromInterstitial() {
+  triggerHaptic("light");
+  state.isTransitionScreen = false;
+  state.currentStep = 4;
+  renderStep();
+}
+
+function continueToFinance() {
+  triggerHaptic("medium");
+  state.isTransitionScreen = false;
+  state.currentStep = 5;
+  renderStep();
+}
+
+function finishAudit() {
+  triggerHaptic("success");
+  state.currentStep = 10;
+  renderStep();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restartAudit() {
+  triggerHaptic("light");
+  state.currentStep = 1;
+  state.isTransitionScreen = false;
+  renderStep();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Revenue handlers
+function handleRevenueInput(val) {
+  const num = parseInt(val) || 1000;
+  state.answers.targetRevenue = num;
+  const slider = document.getElementById("revenue-slider");
+  if (slider) slider.value = Math.min(num, 50000);
+}
+
+function handleRevenueSlider(val) {
+  const num = parseInt(val);
+  state.answers.targetRevenue = num;
+  const inp = document.getElementById("revenue-input");
+  if (inp) inp.value = num;
+}
+
+function setRevenuePreset(val) {
+  triggerHaptic("light");
+  state.answers.targetRevenue = val;
+  renderStep();
+}
+
+// Average Check handlers
+function handleCheckInput(val) {
+  const num = parseInt(val) || 10;
+  state.answers.averageCheck = num;
+  const slider = document.getElementById("check-slider");
+  if (slider) slider.value = Math.min(num, 500);
+  updateLiveFunnelStep8();
+}
+
+function handleCheckSlider(val) {
+  const num = parseInt(val);
+  state.answers.averageCheck = num;
+  const inp = document.getElementById("check-input");
+  if (inp) inp.value = num;
+  updateLiveFunnelStep8();
+}
+
+function setCheckPreset(val) {
+  triggerHaptic("light");
+  state.answers.averageCheck = val;
+  renderStep();
+}
+
+function updateLiveFunnelStep8() {
+  const calc = calculateAudit(state.answers);
+  const hintVal = document.querySelector(".live-funnel-hint .hint-val");
+  if (hintVal) hintVal.innerText = `${calc.neededCustomers} ta`;
+}
+
+// Conversion Rate handlers
+function handleConvInput(val) {
+  let num = parseInt(val) || 10;
+  if (num < 1) num = 1;
+  if (num > 100) num = 100;
+  state.answers.conversionRate = num;
+  const slider = document.getElementById("conv-slider");
+  if (slider) slider.value = Math.min(num, 60);
+  updateLiveFunnelStep9();
+}
+
+function handleConvSlider(val) {
+  const num = parseInt(val);
+  state.answers.conversionRate = num;
+  const inp = document.getElementById("conv-input");
+  if (inp) inp.value = num;
+  updateLiveFunnelStep9();
+}
+
+function setConvPreset(rate) {
+  triggerHaptic("light");
+  state.answers.conversionRate = rate;
+  renderStep();
+}
+
+function updateLiveFunnelStep9() {
+  const calc = calculateAudit(state.answers);
+  const hintVals = document.querySelectorAll(".live-funnel-hint .hint-val");
+  if (hintVals && hintVals.length >= 2) {
+    hintVals[0].innerText = `${calc.neededLeads} ta`;
+    hintVals[1].innerText = `${calc.neededCustomers} ta`;
+  }
+}
+
+// Simulator Toggles
+  toggleSimSales,
+  shareToTelegram,
+  copyReportText
+});
+
+// App Start
+window.addEventListener("DOMContentLoaded", () => {
+  state.currentStep = 1;
+  renderStep();
+});
