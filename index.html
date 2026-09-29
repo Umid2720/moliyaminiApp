@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Marketing & Budjet Auditi | Telegram Mini App</title>
+  
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <div class="app-container" id="app">
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">📊</div>
+        <div class="brand-meta">
+          <span class="brand-title">Moliya & Marketing Auditi</span>
+          <span class="brand-tag">Biznes & Byudjet Kalkulyatori</span>
+        </div>
+      </div>
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span class="status-text" id="status-badge">Tahlil jarayoni</span>
+      </div>
+    </header>
+
+    <!-- Progress Indicator (Visible in Quiz) -->
+    <div class="progress-section" id="progress-wrapper">
+      <div class="progress-info">
+        <span class="step-label" id="step-label">1-savol / 9</span>
+        <span class="step-percent" id="step-percent">11%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill" style="width: 11%;"></div>
+      </div>
+      <div class="section-indicator" id="section-indicator">
+        1-qism: Biznes holati va infratuzilmasi
+      </div>
+    </div>
+
+    <!-- MAIN CARD / CONTAINER -->
+    <main class="quiz-card" id="quiz-card">
+      <!-- Step screens will be dynamically injected here -->
+      <div id="step-content"></div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
