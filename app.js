@@ -1109,6 +1109,130 @@ function toggleSimSales(checked) {
 
 // Copy & Telegram Share Helpers
 function generateReportText() {
+  const calc = calculateAudit(state.answers);
+
+  return `📊 MARKETING & BUDJET AUDITI
+
+🏥 Biznes holati:
+• 📂 CRM: ${calc.crmDisplay}
+• 👥 Sotuv bo‘limi: ${calc.salesDisplay}
+• 📱 Ijtimoiy tarmoq: ${calc.packDisplay}
+• ⚠️ Xavf darajasi: ${calc.riskLevel === 'high' ? '🔴 Yuqori' : (calc.riskLevel === 'medium' ? '🟡 O\'rtacha' : '🟢 Past')}
+
+🎯 Moliyaviy maqsad:
+• Oylik daromad: $${calc.targetRevenue.toLocaleString()}
+• O‘rtacha chek: $${calc.averageCheck}
+• Kerakli mijozlar soni: ${calc.neededCustomers} ta
+
+📈 Funnel hisob-kitobi:
+• Sotuv konversiyasi: ${calc.conversionRate}%
+• Kerakli lidlar: ${calc.neededLeads} ta
+• Formula: $${calc.targetRevenue} / $${calc.averageCheck} / ${calc.conversionRate}%
+
+💰 Reklama byudjeti:
+• Platforma: ${calc.bench.name}
+• Lid narxi: $${calc.minCpl} - $${calc.maxCpl} (Benchmark)
+• Minimal byudjet: $${calc.minBudget.toLocaleString()}
+• Optimal byudjet: $${calc.maxBudget.toLocaleString()}
+
+${calc.totalPenaltyPercent > 0 ? `⚠️ Muhim ogohlantirishlar (Samaradorlik jarimasi):
+${state.answers.hasCrm === 'yoq' ? "❌ CRM yo'qligi sababli yo'qotishlar (+20%)\n" : ""}${state.answers.salesTeam === 'ozim' ? "❌ Sotuvchilar yo'qligi sababli past konversiya (+20%)\n" : ""}
+Sizda tizim bo'lmagani uchun real byudjet ${calc.totalPenaltyPercent}% ga qimmatroq tushishi mumkin.
+` : "🎉 Sizda tizimli biznes: jarimalar mavjud emas (0%)\n"}
+✅ Tavsiyalar:
+1. CRM tizimi (AmoCRM/Bitrix24) o'rnating, bu byudjetni 20% tejaydi.
+2. Lidlar kuyib ketmasligi uchun alohida sotuv menejeri yollang.
+3. Reklamani kichik summa (Test) bilan boshlab, CPL ni aniqlang.`;
+}
+
+function copyReportText() {
+  const text = generateReportText();
+  triggerHaptic("success");
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast("✅ Hisobot nusxalandi! Telegramga yuborishingiz mumkin.");
+    }).catch(() => {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand("copy");
+  document.body.removeChild(ta);
+  showToast("✅ Hisobot nusxalandi!");
+}
+
+function shareToTelegram() {
+  triggerHaptic("medium");
+  const text = generateReportText();
+
+  // If running inside Telegram Mini App with sendData capability:
+  if (tg && typeof tg.sendData === "function") {
+    try {
+      tg.sendData(text);
+      showToast("Xabar botga yuborildi!");
+      return;
+    } catch (e) {
+      console.warn("sendData not permitted in current context, using share URL", e);
+    }
+  }
+
+  // Open Telegram share dialog
+  const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(text)}`;
+  if (tg && tg.openTelegramLink) {
+    tg.openTelegramLink(shareUrl);
+  } else {
+    window.open(shareUrl, "_blank");
+  }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+  toast.innerText = msg;
+  toast.classList.add("show");
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2600);
+}
+
+// Keyboard navigation (Enter = next, Escape = back)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && state.currentStep >= 1 && state.currentStep <= 8) {
+    nextStep();
+  } else if (e.key === "Escape" && state.currentStep > 1) {
+    prevStep();
+  }
+});
+
+// Expose handlers to window for inline onclick/oninput compatibility in Vite/modules
+Object.assign(window, {
+  selectAnswer,
+  nextStep,
+  prevStep,
+  proceedFromStep4,
+  goBackFromInterstitial,
+  continueToFinance,
+  finishAudit,
+  restartAudit,
+  handleRevenueInput,
+  handleRevenueSlider,
+  setRevenuePreset,
+  handleCheckInput,
+  handleCheckSlider,
+  setCheckPreset,
+  handleConvInput,
+  handleConvSlider,
+  setConvPreset,
+  toggleSimCrm,
   toggleSimSales,
   shareToTelegram,
   copyReportText
