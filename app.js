@@ -643,6 +643,316 @@ function renderStep() {
 // -------------------------------------------------------------
 // AUDIT REPORT RENDERING (Exact Match with user specifications)
 // -------------------------------------------------------------
+function renderAuditResult() {
+  const container = document.getElementById("step-content");
+  const calc = calculateAudit(state.answers);
+
+  triggerHaptic("success");
+
+  container.innerHTML = `
+    <div class="report-container">
+      <!-- Report Header -->
+      <div class="report-hero">
+        <span class="report-badge">📊 Marketing & Budjet Auditi</span>
+        <h1 class="report-main-title">Biznes Auditi Xulosasi</h1>
+        <p class="report-subtitle">Sizning biznesingiz va maqsadlaringiz asosidagi hisob-kitob</p>
+      </div>
+
+      <!-- Risk Meter Card -->
+      <div class="risk-card risk-${calc.riskLevel}">
+        <div class="risk-info">
+          <span class="risk-tag">⚠️ Tizim Xavf Darajasi:</span>
+          <span class="risk-level-name">
+            ${calc.riskLevel === "high" ? "🔴 Yuqori xavf" : (calc.riskLevel === "medium" ? "🟡 O'rtacha xavf" : "🟢 Past / Xavfsiz")}
+          </span>
+        </div>
+        <div class="risk-score-badge">
+          <div class="risk-score-num">${calc.riskScore}%</div>
+          <div class="risk-score-sub">Samaradorlik</div>
+        </div>
+      </div>
+
+      <!-- Card 1: Biznes Holati -->
+      <div class="audit-card">
+        <div class="audit-card-header">
+          <span style="font-size: 18px;">🏥</span>
+          <h3 class="audit-card-title">Biznes holati</h3>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">📂 CRM tizimi:</span>
+          <span class="metric-val ${state.answers.hasCrm === "ha" ? "highlight-green" : "highlight-rose"}">${calc.crmDisplay}</span>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">👥 Sotuv bo‘limi:</span>
+          <span class="metric-val ${state.answers.salesTeam === "ha" ? "highlight-green" : "highlight-rose"}">${calc.salesDisplay}</span>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">📱 Ijtimoiy tarmoq (Upakovka):</span>
+          <span class="metric-val ${state.answers.packaging === "zor" ? "highlight-green" : ""}">${calc.packDisplay}</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Moliyaviy Maqsad -->
+      <div class="audit-card">
+        <div class="audit-card-header">
+          <span style="font-size: 18px;">🎯</span>
+          <h3 class="audit-card-title">Moliyaviy maqsad</h3>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">Oylik daromad maqsadi:</span>
+          <span class="metric-val highlight-green">$${calc.targetRevenue.toLocaleString()}</span>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">O‘rtacha chek:</span>
+          <span class="metric-val">$${calc.averageCheck}</span>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">Kerakli mijozlar soni:</span>
+          <span class="metric-val highlight-blue"><strong>${calc.neededCustomers} ta</strong></span>
+        </div>
+      </div>
+
+      <!-- Card 3: Funnel hisob-kitobi -->
+      <div class="audit-card">
+        <div class="audit-card-header">
+          <span style="font-size: 18px;">📈</span>
+          <h3 class="audit-card-title">Funnel (Voronka) hisob-kitobi</h3>
+        </div>
+
+        <div class="funnel-visual">
+          <div class="funnel-step">
+            <div class="funnel-bar-container">
+              <div class="funnel-bar-fill fill-leads" style="width: 100%;"></div>
+              <div class="funnel-bar-text">
+                <span>Kiruvchi lidlar</span>
+                <span>${calc.neededLeads} ta</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="funnel-step">
+            <div class="funnel-bar-container">
+              <div class="funnel-bar-fill fill-conv" style="width: ${calc.conversionRate}%;"></div>
+              <div class="funnel-bar-text">
+                <span>Sotuv konversiyasi</span>
+                <span>${calc.conversionRate}%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="funnel-step">
+            <div class="funnel-bar-container">
+              <div class="funnel-bar-fill fill-clients" style="width: ${(calc.neededCustomers / calc.neededLeads * 100).toFixed(0)}%;"></div>
+              <div class="funnel-bar-text">
+                <span>Yakuniy mijozlar</span>
+                <span>${calc.neededCustomers} ta</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-row" style="margin-top: 4px;">
+          <span class="metric-label">Sotuv konversiyasi:</span>
+          <span class="metric-val">${calc.conversionRate}%</span>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">Kerakli lidlar:</span>
+          <span class="metric-val highlight-blue"><strong>${calc.neededLeads} ta</strong></span>
+        </div>
+
+        <div class="funnel-formula-box">
+          📐 Formula: $${calc.targetRevenue} / $${calc.averageCheck} / ${calc.conversionRate}% = ${calc.neededLeads} ta lid
+        </div>
+      </div>
+
+      <!-- Card 4: Reklama Byudjeti -->
+      <div class="audit-card">
+        <div class="audit-card-header">
+          <span style="font-size: 18px;">💰</span>
+          <h3 class="audit-card-title">Reklama byudjeti</h3>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">Asosiy platforma:</span>
+          <span class="metric-val">${calc.bench.name}</span>
+        </div>
+
+        <div class="metric-row">
+          <span class="metric-label">Lid narxi (Benchmark):</span>
+          <span class="metric-val">$${calc.minCpl} - $${calc.maxCpl}</span>
+        </div>
+
+        <div class="budget-hero-box">
+          <div class="budget-hero-col">
+            <span class="budget-hero-label">Minimal byudjet</span>
+            <span class="budget-hero-amount">$${calc.minBudget.toLocaleString()}</span>
+            <span class="budget-hero-sub">~$${Math.round(calc.minBudget / 30)} / kun</span>
+          </div>
+          <div class="budget-hero-col">
+            <span class="budget-hero-label">Optimal byudjet</span>
+            <span class="budget-hero-amount optimal">$${calc.maxBudget.toLocaleString()}</span>
+            <span class="budget-hero-sub">~$${Math.round(calc.maxBudget / 30)} / kun</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Muhim ogohlantirishlar (Samaradorlik jarimasi) -->
+      ${calc.totalPenaltyPercent > 0 ? `
+        <div class="penalty-card">
+          <div class="audit-card-header" style="border-bottom-color: rgba(239,68,68,0.2);">
+            <span style="font-size: 18px;">⚠️</span>
+            <h3 class="audit-card-title" style="color: #fca5a5;">Muhim ogohlantirishlar (Samaradorlik jarimasi):</h3>
+          </div>
+
+          ${state.answers.hasCrm === "yoq" ? `
+            <div class="penalty-item">
+              <span>❌</span>
+              <div><strong>CRM yo'qligi sababli yo'qotishlar (+20%)</strong> — mijozlar esdan chiqadi yoki kech javob beriladi.</div>
+            </div>
+          ` : (state.answers.hasCrm === "excel" ? `
+            <div class="penalty-item">
+              <span>⚠️</span>
+              <div><strong>Excelda yuritish xavfi (+10%)</strong> — qo'lda boshqaruv xatolari.</div>
+            </div>
+          ` : "")}
+
+          ${state.answers.salesTeam === "ozim" ? `
+            <div class="penalty-item">
+              <span>❌</span>
+              <div><strong>Sotuvchilar yo'qligi sababli past konversiya (+20%)</strong> — o'zingiz ulgurmaysiz.</div>
+            </div>
+          ` : (state.answers.salesTeam === "operator" ? `
+            <div class="penalty-item">
+              <span>⚠️</span>
+              <div><strong>Professional sotuvchi yo'qligi (+10%)</strong> — faqat administrator javob bermoqda.</div>
+            </div>
+          ` : "")}
+
+          ${state.answers.packaging === "yomon" ? `
+            <div class="penalty-item">
+              <span>❌</span>
+              <div><strong>Upakovka yomonligi (+15%)</strong> — sahifa ishonch uyg'otmaydi, lidlar qimmatlashadi.</div>
+            </div>
+          ` : ""}
+
+          <div class="penalty-callout">
+            Sizda tizim to'liq bo'lmagani uchun real byudjet <strong>+${calc.totalPenaltyPercent}% ga qimmatroq</strong> tushishi mumkin (Ortiqcha sarf: ~$${calc.potentialSavings}).
+          </div>
+        </div>
+      ` : `
+        <div class="audit-card" style="border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.06);">
+          <div class="audit-card-header">
+            <span style="font-size: 18px;">🎉</span>
+            <h3 class="audit-card-title" style="color: var(--accent-emerald);">Ajoyib tizim! Jarimalar yo'q (0%)</h3>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.45;">
+            Sizda CRM hamda sotuv bo'limi mavjud bo'lgani sababli reklama byudjetingiz maksimal darajada tejamkor ishlaydi!
+          </p>
+        </div>
+      `}
+
+      <!-- Card 6: Tavsiyalar -->
+      <div class="audit-card">
+        <div class="audit-card-header">
+          <span style="font-size: 18px;">✅</span>
+          <h3 class="audit-card-title">Tavsiyalar</h3>
+        </div>
+
+        <div class="recommendations-list">
+          <div class="rec-item">
+            <span class="rec-badge">1</span>
+            <div>
+              <strong>CRM tizimi (AmoCRM / Bitrix24) o'rnating</strong> — bu byudjetni 20% tejaydi va har bir lidni nazoratda ushlaydi.
+            </div>
+          </div>
+
+          <div class="rec-item">
+            <span class="rec-badge">2</span>
+            <div>
+              <strong>Lidlar kuyib ketmasligi uchun alohida sotuv menejeri yollang</strong> — bu konversiyani 2 barobargacha oshiradi.
+            </div>
+          </div>
+
+          <div class="rec-item">
+            <span class="rec-badge">3</span>
+            <div>
+              <strong>Reklamani kichik summa (Test) bilan boshlang</strong> — dastlab $100-$150 sinov byudjeti bilan real CPL ni aniqlab oling.
+            </div>
+          </div>
+
+          <div class="rec-item">
+            <span class="rec-badge">4</span>
+            <div>
+              <strong>Ijtimoiy tarmoq vizualini yangilang</strong> — profilingizga mijozlar ishonadigan keyslar va sharhlar joylang.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7: Interactive What-If Simulator -->
+      <div class="simulator-box">
+        <div class="sim-header">
+          <span class="sim-title">⚡ Jonli Simulyator: "Tizim qilsak nima bo'ladi?"</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
+          Quyidagi tugmalarni yoqib ko'ring — CRM va sotuvchini ishga tushirsangiz byudjet qanchaga qisqarishini jonli hisoblang:
+        </p>
+
+        <div class="sim-toggles">
+          <div class="sim-toggle-row">
+            <span>CRM tizimini o'rnatish (-20%)</span>
+            <label class="switch">
+              <input type="checkbox" id="sim-crm" ${state.answers.hasCrm === "ha" ? "checked" : ""} onchange="toggleSimCrm(this.checked)">
+              <span class="slider-round"></span>
+            </label>
+          </div>
+
+          <div class="sim-toggle-row">
+            <span>Sotuv menejerini yollash (-20%)</span>
+            <label class="switch">
+              <input type="checkbox" id="sim-sales" ${state.answers.salesTeam === "ha" ? "checked" : ""} onchange="toggleSimSales(this.checked)">
+              <span class="slider-round"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="sim-savings-display" id="sim-savings-info">
+          <span>Tejaladigan mablag':</span>
+          <span id="sim-savings-sum">$${calc.potentialSavings.toLocaleString()} / oyiga</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="report-actions">
+        <button class="btn btn-emerald" onclick="shareToTelegram()">
+          <span>📤</span>
+          <span>Hisobotni Telegramda yuborish</span>
+        </button>
+
+        <button class="btn btn-secondary" onclick="copyReportText()">
+          <span>📋</span>
+          <span>Hisobot matnini nusxalash</span>
+        </button>
+
+        <button class="btn btn-secondary" onclick="restartAudit()">
+          <span>🔄</span>
+          <span>Qayta hisoblash</span>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// -------------------------------------------------------------
+// USER INTERACTION HANDLERS
+// -------------------------------------------------------------
 function selectAnswer(key, value) {
   triggerHaptic("light");
   state.answers[key] = value;
@@ -785,6 +1095,20 @@ function updateLiveFunnelStep9() {
 }
 
 // Simulator Toggles
+function toggleSimCrm(checked) {
+  triggerHaptic("light");
+  state.answers.hasCrm = checked ? "ha" : "yoq";
+  renderAuditResult();
+}
+
+function toggleSimSales(checked) {
+  triggerHaptic("light");
+  state.answers.salesTeam = checked ? "ha" : "ozim";
+  renderAuditResult();
+}
+
+// Copy & Telegram Share Helpers
+function generateReportText() {
   toggleSimSales,
   shareToTelegram,
   copyReportText
