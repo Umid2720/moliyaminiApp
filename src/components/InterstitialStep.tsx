@@ -1,15 +1,10 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, TrendingUp, DollarSign, ArrowLeft, ArrowRight, ShieldCheck } from "lucide-react";
+import { ShieldCheck, TrendingUp, DollarSign, ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { triggerHaptic } from "@/lib/telegram";
+import { playAppleSound } from "@/lib/sound";
 
 interface InterstitialStepProps {
   onBack: () => void;
@@ -21,83 +16,98 @@ export const InterstitialStep: React.FC<InterstitialStepProps> = ({
   onContinue,
 }) => {
   return (
-    <Card className="animate-fade-in border-border/80 bg-card/85">
-      <CardHeader className="text-center pb-4">
-        <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-blue-500/20 to-indigo-500/30 border border-blue-500/40 text-blue-400 shadow-lg shadow-blue-500/10">
-          <ShieldCheck className="h-8 w-8 text-blue-400" />
-        </div>
-        <CardTitle className="text-xl md:text-2xl text-white">
-          Tushunarli! Biznes holati qayd etildi
-        </CardTitle>
-        <CardDescription className="text-sm text-muted-foreground mt-2 max-w-md mx-auto">
-          Biznes tizimi va sotuv infratuzilmangiz dastlabki tahlildan o‘tkazildi.
-          Endi moliyaviy maqsadlar va reklama byudjetini hisoblaymiz.
-        </CardDescription>
-      </CardHeader>
-
-      <CardContent className="space-y-3">
-        <div className="rounded-xl border border-border/50 bg-secondary/40 p-3.5 flex items-start gap-3">
-          <div className="mt-0.5 rounded-lg bg-emerald-500/20 p-1.5 text-emerald-400">
-            <CheckCircle2 className="h-4 w-4" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-white">Tizim xavf darajasi</div>
-            <div className="text-xs text-muted-foreground">
-              CRM, sotuvchilar va upakovka holatiga ko‘ra samaradorlik jarimasi aniqlanadi
+    <motion.div
+      initial={{ opacity: 0, scale: 0.96, y: 15 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.96, y: -15 }}
+      transition={{ type: "spring", damping: 26, stiffness: 260 }}
+    >
+      <Card className="apple-card overflow-hidden">
+        <CardHeader className="text-center p-6 pb-4">
+          {/* Apple Concentric Glow Ring */}
+          <div className="relative mx-auto mb-4 flex h-20 w-20 items-center justify-center">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 opacity-25 blur-xl animate-pulse" />
+            <div className="relative flex h-18 w-18 items-center justify-center rounded-3xl bg-gradient-to-tr from-blue-600 to-indigo-600 p-[1px] shadow-xl shadow-blue-500/25">
+              <div className="flex h-full w-full items-center justify-center rounded-3xl bg-[#0a0f1d]">
+                <ShieldCheck className="h-9 w-9 text-cyan-300 stroke-[2.2]" />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="rounded-xl border border-border/50 bg-secondary/40 p-3.5 flex items-start gap-3">
-          <div className="mt-0.5 rounded-lg bg-blue-500/20 p-1.5 text-blue-400">
-            <TrendingUp className="h-4 w-4" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-white">Lidlar konversiyasi</div>
-            <div className="text-xs text-muted-foreground">
-              Daromad maqsadingizga erishish uchun qancha lid va mijoz kerakligi hisoblanadi
+          <CardTitle className="text-2xl font-black tracking-tight text-white md:text-3xl">
+            Tushunarli! Infratuzilma qayd etildi
+          </CardTitle>
+          <CardDescription className="text-xs text-muted-foreground/90 mt-2 max-w-sm mx-auto leading-relaxed">
+            Biznes tizimingiz dastlabki tahlildan o‘tkazildi. Endi moliyaviy maqsadlar va reklama byudjetini hisoblaymiz.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="p-6 pt-1 space-y-3">
+          <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.04] p-3.5 backdrop-blur-md">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              <Sparkles className="h-4 w-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white">Tizim xavf darajasi</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">
+                CRM, sotuvchilar va upakovka holatiga ko‘ra aniq jarimalar hisobga olinadi.
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="rounded-xl border border-border/50 bg-secondary/40 p-3.5 flex items-start gap-3">
-          <div className="mt-0.5 rounded-lg bg-indigo-500/20 p-1.5 text-indigo-400">
-            <DollarSign className="h-4 w-4" />
-          </div>
-          <div>
-            <div className="text-sm font-semibold text-white">Real reklama byudjeti</div>
-            <div className="text-xs text-muted-foreground">
-              Tanlangan platforma benchmarklari bo‘yicha minimal va optimal byudjet chiqadi
+          <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.04] p-3.5 backdrop-blur-md">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30">
+              <TrendingUp className="h-4 w-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white">Lidlar konversiyasi</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">
+                Daromad maqsadiga erishish uchun qancha lid va mijoz kerakligi hisoblanadi.
+              </div>
             </div>
           </div>
-        </div>
-      </CardContent>
 
-      <CardFooter className="flex flex-col sm:flex-row gap-2 pt-2">
-        <Button
-          variant="secondary"
-          onClick={() => {
-            triggerHaptic("light");
-            onBack();
-          }}
-          className="w-full sm:w-auto"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Orqaga
-        </Button>
-        <Button
-          variant="glow"
-          onClick={() => {
-            triggerHaptic("medium");
-            onContinue();
-          }}
-          className="w-full flex-1"
-        >
-          Moliyaviy maqsadlarga o‘tish
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
-      </CardFooter>
-    </Card>
+          <div className="flex items-start gap-3.5 rounded-2xl border border-white/10 bg-white/[0.04] p-3.5 backdrop-blur-md">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+              <DollarSign className="h-4 w-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white">Real reklama byudjeti</div>
+              <div className="text-[11px] text-muted-foreground mt-0.5">
+                Tanlangan platforma benchmarki bo‘yicha minimal va optimal byudjet chiqadi.
+              </div>
+            </div>
+          </div>
+        </CardContent>
+
+        <CardFooter className="flex gap-2 p-6 pt-2">
+          <Button
+            variant="secondary"
+            size="lg"
+            onClick={() => {
+              playAppleSound("tap");
+              triggerHaptic("light");
+              onBack();
+            }}
+            className="px-4"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="glow"
+            size="lg"
+            className="flex-1 text-sm font-bold shadow-xl shadow-blue-500/30"
+            onClick={() => {
+              playAppleSound("tap");
+              triggerHaptic("medium");
+              onContinue();
+            }}
+          >
+            Moliyaviy maqsadlarga o‘tish
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </CardFooter>
+      </Card>
+    </motion.div>
   );
 };
-
