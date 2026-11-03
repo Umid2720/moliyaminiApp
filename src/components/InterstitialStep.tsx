@@ -80,7 +80,7 @@ export const InterstitialStep: React.FC<InterstitialStepProps> = ({
           </div>
         </CardContent>
 
-        <CardFooter className="flex gap-2 p-6 pt-2">
+        <CardFooter className="flex gap-3 p-6 pt-3">
           <Button
             variant="secondary"
             size="lg"
@@ -89,14 +89,14 @@ export const InterstitialStep: React.FC<InterstitialStepProps> = ({
               triggerHaptic("light");
               onBack();
             }}
-            className="px-4"
+            className="px-5"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-5 w-5" />
           </Button>
           <Button
             variant="glow"
             size="lg"
-            className="flex-1 text-sm font-bold shadow-xl shadow-blue-500/30"
+            className="flex-1 text-[15px] font-bold shadow-xl shadow-blue-500/30"
             onClick={() => {
               playAppleSound("tap");
               triggerHaptic("medium");
@@ -104,7 +104,7 @@ export const InterstitialStep: React.FC<InterstitialStepProps> = ({
             }}
           >
             Moliyaviy maqsadlarga o‘tish
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </CardFooter>
       </Card>

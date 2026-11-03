@@ -166,11 +166,11 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             })}
           </CardContent>
 
-          <CardFooter className="p-5 pt-1">
+          <CardFooter className="p-5 pt-3">
             <Button
               variant="glow"
               size="lg"
-              className="w-full text-sm font-bold shadow-lg shadow-blue-500/25"
+              className="w-full text-[15px] font-bold shadow-lg shadow-blue-500/25"
               onClick={() => {
                 playAppleSound("tap");
                 triggerHaptic("medium");
@@ -178,7 +178,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               }}
             >
               Keyingi bosqich
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </CardFooter>
         </Card>
@@ -292,7 +292,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             })}
           </CardContent>
 
-          <CardFooter className="flex gap-2 p-5 pt-1">
+          <CardFooter className="flex gap-3 p-5 pt-3">
             <Button
               variant="secondary"
               size="lg"
@@ -301,14 +301,14 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 triggerHaptic("light");
                 onPrev();
               }}
-              className="px-4"
+              className="px-5"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <Button
               variant="glow"
               size="lg"
-              className="flex-1 text-sm font-bold shadow-lg shadow-blue-500/25"
+              className="flex-1 text-[15px] font-bold shadow-lg shadow-blue-500/25"
               onClick={() => {
                 playAppleSound("tap");
                 triggerHaptic("medium");
@@ -316,7 +316,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               }}
             >
               Keyingi bosqich
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </CardFooter>
         </Card>
@@ -430,7 +430,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             })}
           </CardContent>
 
-          <CardFooter className="flex gap-2 p-5 pt-1">
+          <CardFooter className="flex gap-3 p-5 pt-3">
             <Button
               variant="secondary"
               size="lg"
@@ -439,14 +439,14 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 triggerHaptic("light");
                 onPrev();
               }}
-              className="px-4"
+              className="px-5"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <Button
               variant="glow"
               size="lg"
-              className="flex-1 text-sm font-bold shadow-lg shadow-blue-500/25"
+              className="flex-1 text-[15px] font-bold shadow-lg shadow-blue-500/25"
               onClick={() => {
                 playAppleSound("tap");
                 triggerHaptic("medium");
@@ -454,7 +454,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               }}
             >
               Keyingi bosqich
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </CardFooter>
         </Card>
@@ -677,7 +677,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             </div>
           </CardContent>
 
-          <CardFooter className="flex gap-2 p-5 pt-1">
+          <CardFooter className="flex gap-3 p-5 pt-3">
             <Button
               variant="secondary"
               size="lg"
@@ -686,14 +686,14 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 triggerHaptic("light");
                 onPrev();
               }}
-              className="px-4"
+              className="px-5"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <Button
               variant="glow"
               size="lg"
-              className="flex-1 text-sm font-bold shadow-lg shadow-blue-500/25"
+              className="flex-1 text-[15px] font-bold shadow-lg shadow-blue-500/25"
               onClick={() => {
                 playAppleSound("tap");
                 triggerHaptic("medium");
@@ -701,7 +701,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               }}
             >
               Keyingi bosqich
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </CardFooter>
         </Card>
@@ -812,7 +812,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             })}
           </CardContent>
 
-          <CardFooter className="flex gap-2 p-5 pt-1">
+          <CardFooter className="flex gap-3 p-5 pt-3">
             <Button
               variant="secondary"
               size="lg"
@@ -821,14 +821,14 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 triggerHaptic("light");
                 onPrev();
               }}
-              className="px-4"
+              className="px-5"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <Button
               variant="glow"
               size="lg"
-              className="flex-1 text-sm font-bold shadow-lg shadow-blue-500/25"
+              className="flex-1 text-[15px] font-bold shadow-lg shadow-blue-500/25"
               onClick={() => {
                 playAppleSound("tap");
                 triggerHaptic("medium");
@@ -836,7 +836,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               }}
             >
               Keyingi bosqich
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </CardFooter>
         </Card>
@@ -941,7 +941,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             </div>
           </CardContent>
 
-          <CardFooter className="flex gap-2 p-5 pt-1">
+          <CardFooter className="flex gap-3 p-5 pt-3">
             <Button
               variant="secondary"
               size="lg"
@@ -950,14 +950,14 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 triggerHaptic("light");
                 onPrev();
               }}
-              className="px-4"
+              className="px-5"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <Button
               variant="glow"
               size="lg"
-              className="flex-1 text-sm font-bold shadow-lg shadow-blue-500/25"
+              className="flex-1 text-[15px] font-bold shadow-lg shadow-blue-500/25"
               onClick={() => {
                 playAppleSound("tap");
                 triggerHaptic("medium");
@@ -965,7 +965,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               }}
             >
               Keyingi bosqich
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </CardFooter>
         </Card>
@@ -1080,7 +1080,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             </div>
           </CardContent>
 
-          <CardFooter className="flex gap-2 p-5 pt-1">
+          <CardFooter className="flex gap-3 p-5 pt-3">
             <Button
               variant="secondary"
               size="lg"
@@ -1089,14 +1089,14 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 triggerHaptic("light");
                 onPrev();
               }}
-              className="px-4"
+              className="px-5"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <Button
               variant="glow"
               size="lg"
-              className="flex-1 text-sm font-bold shadow-lg shadow-blue-500/25"
+              className="flex-1 text-[15px] font-bold shadow-lg shadow-blue-500/25"
               onClick={() => {
                 playAppleSound("tap");
                 triggerHaptic("medium");
@@ -1104,7 +1104,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
               }}
             >
               Keyingi bosqich
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </CardFooter>
         </Card>
@@ -1226,7 +1226,7 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
             </div>
           </CardContent>
 
-          <CardFooter className="flex gap-2 p-5 pt-1">
+          <CardFooter className="flex gap-3 p-5 pt-3">
             <Button
               variant="secondary"
               size="lg"
@@ -1235,21 +1235,21 @@ export const QuizQuestion: React.FC<QuizQuestionProps> = ({
                 triggerHaptic("light");
                 onPrev();
               }}
-              className="px-4"
+              className="px-5"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-5 w-5" />
             </Button>
             <Button
               variant="emerald"
               size="lg"
-              className="flex-1 text-sm font-extrabold shadow-xl shadow-emerald-500/30"
+              className="flex-1 text-[15px] font-extrabold shadow-xl shadow-emerald-500/30"
               onClick={() => {
                 playAppleSound("success");
                 triggerHaptic("success");
                 onFinish();
               }}
             >
-              <Calculator className="mr-2 h-4 w-4" />
+              <Calculator className="h-5 w-5 mr-1" />
               Hisobotni hisoblash
             </Button>
           </CardFooter>

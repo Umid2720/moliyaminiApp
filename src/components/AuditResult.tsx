@@ -606,15 +606,15 @@ export const AuditResult: React.FC<AuditResultProps> = ({
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="space-y-2.5 pt-2"
+        className="space-y-3 pt-3"
       >
         <Button
           variant="emerald"
           size="lg"
           onClick={handleShareTelegram}
-          className="w-full text-sm font-extrabold shadow-2xl shadow-emerald-500/30"
+          className="w-full text-base font-extrabold shadow-2xl shadow-emerald-500/30"
         >
-          <Share2 className="mr-2 h-4 w-4" />
+          <Share2 className="h-5 w-5" />
           Hisobotni Telegramda yuborish
         </Button>
 
@@ -622,16 +622,16 @@ export const AuditResult: React.FC<AuditResultProps> = ({
           variant="secondary"
           size="lg"
           onClick={handleCopy}
-          className="w-full text-xs font-bold border-white/10"
+          className="w-full text-[15px] font-bold"
         >
           {copied ? (
             <>
-              <Check className="mr-2 h-4 w-4 text-emerald-400" />
-              Hisobot nusxalandi!
+              <Check className="h-5 w-5 text-emerald-400" />
+              Hisobot matni nusxalandi!
             </>
           ) : (
             <>
-              <Copy className="mr-2 h-4 w-4" />
+              <Copy className="h-5 w-5 text-white/80" />
               Hisobot matnini nusxalash
             </>
           )}
@@ -645,9 +645,9 @@ export const AuditResult: React.FC<AuditResultProps> = ({
             triggerHaptic("light");
             onRestart();
           }}
-          className="w-full text-xs font-semibold text-muted-foreground hover:text-white border-white/10"
+          className="w-full text-[14px] font-semibold text-white/80 hover:text-white"
         >
-          <RotateCcw className="mr-2 h-4 w-4" />
+          <RotateCcw className="h-4 w-4 text-white/60" />
           Boshidan qayta hisoblash
         </Button>
       </motion.div>

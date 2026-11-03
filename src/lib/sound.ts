@@ -91,3 +91,4 @@ export const playAppleSound = (type: "tap" | "tick" | "slide" | "success" | "tog
     // AudioContext blocked or not supported
   }
 };
+
